@@ -1,5 +1,48 @@
 <body>
-    {{retour}}
+
+    {% if path == "/" %}
+        <a href="/signup">SignUp</a>
+    {% endif %}
+    
+    
+    {% if path == "/signup" %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            <h1 class="display-1 text-center">Inscription</h1>
+                <form action="/signup" method="post">
+                    <div>
+                        <label for="name" class="form-label">Votre nom :</label>
+                        <input type="text" class="form-control" placeholder="Entrez votre nom" id="name" name="name">
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="firstname" class="form-label">Votre prénom :</label>
+                        <input type="text" class="form-control" placeholder="Entrez votre prénom" id="firstname" name="firstname">
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="mail" class="form-label">Votre Email :</label>
+                        <input type="mail" class="form-control" placeholder="Entrez votre Email" id="mail" name="mail">
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="psw1" class="form-label">Votre Mot de Passe :</label>
+                        <input type="password" class="form-control" placeholder="Entrez votre Mot de Passe" id="psw1" name="psw1">
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="psw2" class="form-label">Confirmer le Mot de Passe:</label>
+                        <input type="password" class="form-control" placeholder="Confirmer votre Mot de Passe" id="psw2" name="psw2">
+                    </div>
+
+                    <input type="submit" value="S'inscrire" name="formSub" class="btn btn-lg mt-4 d-block w-25 mx-auto bg-secondary fs-3 text-light">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
     
 
     {% include "footer.html" %}

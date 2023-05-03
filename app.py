@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from mysql import connector
 
@@ -10,10 +10,12 @@ app = Flask(__name__)
 
 @app.route("/", methods = ['GET'])
 def mainRoute():
+    path = request.path
     db = Bdd.Db()
     retour = db.getData()
     return render_template('main.html',
-                           retour = retour)
+                           title = "Home",
+                           path = path)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def loginRoute():
@@ -25,4 +27,7 @@ def logoutRoute():
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signupRoute():
-    return ''
+    path = request.path
+    return render_template('main.html',
+                           title = "SignUp",
+                           path = path)
