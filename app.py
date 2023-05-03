@@ -28,6 +28,22 @@ def logoutRoute():
 @app.route('/signup', methods = ['GET', 'POST'])
 def signupRoute():
     path = request.path
-    return render_template('main.html',
+    
+    if request.method == 'POST':
+        user_name = request.form['name']
+        user_firstname = request.form['firstname']
+        user_email = request.form['mail']
+        psw1 = request.form['psw1']
+        psw2 = request.form['psw2']
+        return render_template('main.html',
                            title = "SignUp",
-                           path = path)
+                           path = path,
+                           name = user_name,
+                           firstname = user_firstname,
+                           email = user_email,
+                           psw1 = psw1,
+                           psw2 = psw2)
+    else:
+        return render_template('main.html',
+                               title = "SignUp",
+                               path=path)
