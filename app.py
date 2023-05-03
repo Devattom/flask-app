@@ -4,6 +4,8 @@ from mysql import connector
 
 import Bdd
 
+
+
 app = Flask(__name__)
 
 @app.route("/", methods = ['GET'])

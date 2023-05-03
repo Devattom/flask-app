@@ -23,6 +23,11 @@ class Db:
         
         return retour
     
+    def getUserByEmail(self, email):
+        current_db = self.db.cursor()
+
+        req = 'SELECT '
+    
 
     def __del__(self):
         self.db.close()
