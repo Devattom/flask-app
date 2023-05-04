@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 
 from mysql import connector
+import re
 
 import Bdd
 
@@ -35,6 +36,17 @@ def signupRoute():
         user_email = request.form['mail']
         psw1 = request.form['psw1']
         psw2 = request.form['psw2']
+
+        regex = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}'
+
+        if re.fullmatch(regex, user_email):
+            if psw1 == psw2:
+                message = 'psw ok'
+                db = Bdd.Db()
+            else:
+                message = 'Veuillez Saisir deux mots de passe identique'
+        else:
+            message = "Veuillez rentrer un email au format valide"
         return render_template('main.html',
                            title = "SignUp",
                            path = path,
@@ -42,7 +54,8 @@ def signupRoute():
                            firstname = user_firstname,
                            email = user_email,
                            psw1 = psw1,
-                           psw2 = psw2)
+                           psw2 = psw2,
+                           message = message)
     else:
         return render_template('main.html',
                                title = "SignUp",
