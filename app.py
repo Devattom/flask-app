@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-
+import bcrypt
 from mysql import connector
 import re
 
@@ -16,7 +16,8 @@ def mainRoute():
     retour = db.getData()
     return render_template('main.html',
                            title = "Home",
-                           path = path)
+                           path = path,
+                           retour = retour)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def loginRoute():
@@ -36,13 +37,18 @@ def signupRoute():
         user_email = request.form['mail']
         psw1 = request.form['psw1']
         psw2 = request.form['psw2']
+        message = ''
 
         regex = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}'
 
         if re.fullmatch(regex, user_email):
             if psw1 == psw2:
-                message = 'psw ok'
                 db = Bdd.Db()
+                salt = bcrypt.gensalt(rounds = 15)
+                crypt_psw = bcrypt.hashpw(psw1.encode('utf-8'), salt)
+                db.insertUser(user_name, user_firstname, user_email, crypt_psw)
+                retour = db.getData()
+                message = 'psw ok'
             else:
                 message = 'Veuillez Saisir deux mots de passe identique'
         else:
@@ -55,7 +61,8 @@ def signupRoute():
                            email = user_email,
                            psw1 = psw1,
                            psw2 = psw2,
-                           message = message)
+                           message = message,
+                           retour = retour)
     else:
         return render_template('main.html',
                                title = "SignUp",

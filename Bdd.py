@@ -26,7 +26,13 @@ class Db:
     def getUserByEmail(self, email):
         current_db = self.db.cursor()
 
-        req = 'SELECT '
+    
+    def insertUser(self, lastname, firstname, email, password):
+        current_db = self.db.cursor()
+        req = "INSERT INTO users (nom, prenom, mail, password) VALUES (%s, %s, %s, %s)"
+        user_data =(lastname, firstname, email, password)
+        current_db.execute(req, user_data)
+        self.db.commit()
     
 
     def __del__(self):
