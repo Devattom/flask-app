@@ -25,6 +25,11 @@ class Db:
     
     def getUserByEmail(self, email):
         current_db = self.db.cursor()
+        req = "SELECT mail, password FROM users WHERE mail = %s"
+        data = (email,)
+        current_db.execute(req, data)
+        result = current_db.fetchall()
+        return result
 
     
     def insertUser(self, lastname, firstname, email, password):

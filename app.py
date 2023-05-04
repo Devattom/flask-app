@@ -44,11 +44,14 @@ def signupRoute():
         if re.fullmatch(regex, user_email):
             if psw1 == psw2:
                 db = Bdd.Db()
-                salt = bcrypt.gensalt(rounds = 15)
-                crypt_psw = bcrypt.hashpw(psw1.encode('utf-8'), salt)
-                db.insertUser(user_name, user_firstname, user_email, crypt_psw)
-                retour = db.getData()
-                message = 'psw ok'
+                if db.getUserByEmail(user_email):
+                    message = "Un compte existe déjà avec cet Email"
+                else:
+                    salt = bcrypt.gensalt(rounds = 15)
+                    crypt_psw = bcrypt.hashpw(psw1.encode('utf-8'), salt)
+                    db.insertUser(user_name, user_firstname, user_email, crypt_psw)
+                    retour = db.getData()
+                    message = 'psw ok'
             else:
                 message = 'Veuillez Saisir deux mots de passe identique'
         else:
@@ -62,7 +65,7 @@ def signupRoute():
                            psw1 = psw1,
                            psw2 = psw2,
                            message = message,
-                           retour = retour)
+                           )
     else:
         return render_template('main.html',
                                title = "SignUp",
