@@ -82,9 +82,6 @@ def signupRoute():
                            psw1 = psw1,
                            psw2 = psw2,
                            message = message,
-                           name_val = name,
-                           firstname_val = firstname,
-                           email_val = email,
                            )
     else:
         return render_template('main.html',

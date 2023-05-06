@@ -29,6 +29,9 @@ class Db:
         data = (email,)
         current_db.execute(req, data)
         result = current_db.fetchall()
+        print(result)
+        # data['email'] = result[0]
+        # data['password'] = result[1]
         return result
 
     
