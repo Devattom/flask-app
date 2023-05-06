@@ -40,25 +40,37 @@ def signupRoute():
         message = {}
 
         regex_mail = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}'
-        regex_names = '[A-za-z._%-]'
-    
-        if not re.fullmatch(regex_mail, user_email):
+        regex_names = '[a-zA-Z-]+'
+        
+        if not re.fullmatch(regex_mail, user_email) or user_email == None:
             message['email'] = "Veuillez rentrer un email au format valide"
-        if not re.fullmatch(regex_names, user_name):
-            message['name'] = "Veuillez rentrer un nom valide"
-        if not re.fullmatch(regex_names, user_firstname):
-            message['firstname'] = "Veuillez rentrer un prénom valide"
-
-        if psw1 and psw1 == psw2:
-            db = Bdd.Db()
-            if db.getUserByEmail(user_email):
-                message['user'] = "Un compte existe déjà avec cet Email"
-            else:
-                salt = bcrypt.gensalt(rounds = 15)
-                crypt_psw = bcrypt.hashpw(psw1.encode('utf-8'), salt)
-                db.insertUser(user_name, user_firstname, user_email, crypt_psw)
+            email = False
         else:
-            message['password'] = 'Veuillez Saisir deux mots de passe identiques'
+            email = True
+        if not re.fullmatch(regex_names, user_name) or user_name == None:
+            message['name'] = "Veuillez rentrer un nom valide"
+            name = False
+        else:
+            name = True
+        if not re.fullmatch(regex_names, user_firstname) or user_firstname == None:
+            message['firstname'] = "Veuillez rentrer un prénom valide"
+            firstname = False
+        else:
+            firstname = True
+
+        if email and name and firstname and psw1:
+            if psw1 == psw2:
+                db = Bdd.Db()
+                if db.getUserByEmail(user_email):
+                    message['user'] = "Un compte existe déjà avec cet Email"
+                else:
+                    salt = bcrypt.gensalt(rounds = 15)
+                    crypt_psw = bcrypt.hashpw(psw1.encode('utf-8'), salt)
+                    db.insertUser(user_name, user_firstname, user_email, crypt_psw)
+                    message = {}
+                    message['success'] = "Vous êtes bien inscrit, vous pouvez maintenant vous connecter"
+            else:
+                message['password'] = 'Veuillez Saisir deux mots de passe identiques'
 
             
         return render_template('main.html',
@@ -70,6 +82,9 @@ def signupRoute():
                            psw1 = psw1,
                            psw2 = psw2,
                            message = message,
+                           name_val = name,
+                           firstname_val = firstname,
+                           email_val = email,
                            )
     else:
         return render_template('main.html',

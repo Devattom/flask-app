@@ -16,7 +16,7 @@
                     <div>
                         <label for="name" class="form-label">Votre nom :</label>
                         <input type="text" class="form-control" placeholder="Entrez votre nom" id="name" name="name">
-                        {% if message %}
+                        {% if 'name' in message %}
                             <p class="bg-danger-subtle p-2 mt-1 border border-danger rounded">{{message['name']}}</p>
                         {% endif %}  
                     </div>
@@ -24,7 +24,7 @@
                     <div class="mt-2">
                         <label for="firstname" class="form-label">Votre prénom :</label>
                         <input type="text" class="form-control" placeholder="Entrez votre prénom" id="firstname" name="firstname">
-                        {% if message %}
+                        {% if 'firstname' in message %}
                             <p class="bg-danger-subtle p-2 mt-1 border border-danger rounded">{{message['firstname']}}</p>
                         {% endif %}  
                     </div>
@@ -32,7 +32,7 @@
                     <div class="mt-2">
                         <label for="mail" class="form-label">Votre Email :</label>
                         <input type="mail" class="form-control" placeholder="Entrez votre Email" id="mail" name="mail">
-                        {% if message %}
+                        {% if 'email' in message %}
                             <p class="bg-danger-subtle p-2 mt-1 border border-danger rounded">{{message['email']}}</p>
                         {% endif %}  
                     </div>
@@ -45,22 +45,20 @@
                     <div class="mt-2">
                         <label for="psw2" class="form-label">Confirmer le Mot de Passe:</label>
                         <input type="password" class="form-control" placeholder="Confirmer votre Mot de Passe" id="psw2" name="psw2">
-                        {% if message %}
+                        {% if 'password' in message %}
                             <p class="bg-danger-subtle p-2 mt-1 border border-danger rounded">{{message['password']}}</p>
                         {% endif %}  
                     </div>
 
                     <input type="submit" value="S'inscrire" name="formSub" class="btn btn-lg mt-4 d-block w-25 mx-auto bg-secondary fs-3 text-light">
                 </form>
+                {% if 'success' in message %}
+                    <p class="bg-success-subtle border border-success-subtle p-2 mt-3 rounded text-center fs-3">{{message['success']}}</p>
+                    <a href="/login" class="btn btn-secondary d-block">Se connecter</a>
+                {% endif %}
+                
             </div>
         </div>
-        {{name}}
-        {{firstname}}
-        {{email}}
-        {{psw1}}
-        {{psw2}}
-        {{message}}
-        {{retour}}
     </div>
     {% endif %}
     
