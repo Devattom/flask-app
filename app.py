@@ -5,7 +5,7 @@ import re
 
 import Bdd
 
-
+user_list = []
 
 app = Flask(__name__)
 
@@ -21,7 +21,29 @@ def mainRoute():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def loginRoute():
-    return ''
+    path = request.path
+
+    if request.method == 'POST':
+        input_email = request.form['email']
+        input_password = request.form['password']
+        db = Bdd.Db()
+        data = db.getUserByEmail(input_email)
+        db_password = data[1]
+        if bcrypt.checkpw(input_password.encode('utf-8'), db_password.encode('utf-8')):
+            user_list.append(data[0])
+        else:
+            print('pas ok')
+        return render_template('main.html',
+                           title = 'Login',
+                           path = path,
+                           data = data)
+    else: 
+        return render_template('main.html',
+                        title = 'Login',
+                        path = path)
+
+
+
 
 @app.route('/logout', methods = ['GET'])
 def logoutRoute():

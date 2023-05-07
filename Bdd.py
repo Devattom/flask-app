@@ -29,10 +29,12 @@ class Db:
         data = (email,)
         current_db.execute(req, data)
         result = current_db.fetchall()
-        print(result)
-        # data['email'] = result[0]
-        # data['password'] = result[1]
-        return result
+        data = []
+        
+        for email, password in result:
+            data.append(email)
+            data.append(password)
+        return data
 
     
     def insertUser(self, lastname, firstname, email, password):

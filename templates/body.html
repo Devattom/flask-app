@@ -2,6 +2,7 @@
 
     {% if path == "/" %}
         <a href="/signup">SignUp</a>
+        <a href="/login">login</a>
         {{retour}}
     {% endif %}
     
@@ -31,7 +32,7 @@
 
                     <div class="mt-2">
                         <label for="mail" class="form-label">Votre Email :</label>
-                        <input type="mail" class="form-control" placeholder="Entrez votre Email" id="mail" name="mail">
+                        <input type="email" class="form-control" placeholder="Entrez votre Email" id="mail" name="mail">
                         {% if 'email' in message %}
                             <p class="bg-danger-subtle p-2 mt-1 border border-danger rounded">{{message['email']}}</p>
                         {% endif %}  
@@ -63,8 +64,33 @@
             </div>
         </div>
     </div>
-
     {% endif %}
+
+    {% if path == '/login' %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="display-1 text-center mb-3">Se connecter</h1>
+
+                    <form action="/login" method="post">
+
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="Votre Email" name="email">
+                            <label for="floatingInput">Votre Email :</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="psw" placeholder="Votre Mot de Passe" name="password">
+                            <label for="psw">Votre Mot de Passe</label>
+                        </div>
+                    
+                        <input type="submit" value="Se connecter" class="btn btn-info-subtle">
+                    </form>
+    {{data}}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
     
     
 
