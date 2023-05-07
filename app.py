@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import bcrypt
 from mysql import connector
 import re
@@ -57,7 +57,8 @@ def loginRoute():
 
 @app.route('/logout', methods = ['GET'])
 def logoutRoute():
-    return ''
+    user_list.clear()
+    return redirect(url_for('mainRoute'))
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signupRoute():
