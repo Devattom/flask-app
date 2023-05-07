@@ -12,12 +12,16 @@ app = Flask(__name__)
 @app.route("/", methods = ['GET'])
 def mainRoute():
     path = request.path
-    db = Bdd.Db()
-    retour = db.getData()
+    if user_list:
+        message = "Bonjour " + user_list[0]
+    else:
+        message = "Bonjour utilisateur anonyme"
     return render_template('main.html',
                            title = "Home",
                            path = path,
-                           retour = retour)
+                           user_list = user_list,
+                           message = message
+                          )
 
 @app.route('/login', methods = ['GET', 'POST'])
 def loginRoute():

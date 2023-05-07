@@ -3,7 +3,13 @@
     {% if path == "/" %}
         <a href="/signup">SignUp</a>
         <a href="/login">login</a>
-        {{retour}}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-center fs-3">{{message}}</p>
+                </div>
+            </div>
+        </div>
     {% endif %}
     
     
