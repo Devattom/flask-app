@@ -28,15 +28,21 @@ def loginRoute():
         input_password = request.form['password']
         db = Bdd.Db()
         data = db.getUserByEmail(input_email)
-        db_password = data[1]
-        if bcrypt.checkpw(input_password.encode('utf-8'), db_password.encode('utf-8')):
-            user_list.append(data[0])
+        error = ''
+        if data:
+            db_password = data[1]
+            if bcrypt.checkpw(input_password.encode('utf-8'), db_password.encode('utf-8')):
+                user_list.append(data[0])
+            else:
+                error = "L'identifiant ou le mot de passe est incorrect"
         else:
-            print('pas ok')
+            error = "L'identifiant ou le mot de passe est incorrect"
         return render_template('main.html',
                            title = 'Login',
                            path = path,
-                           data = data)
+                           data = data,
+                           error = error,
+                           user_list = user_list)
     else: 
         return render_template('main.html',
                         title = 'Login',

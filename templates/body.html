@@ -70,9 +70,12 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h1 class="display-1 text-center mb-3">Se connecter</h1>
-
-                    <form action="/login" method="post">
+                    <h1 class="display-1 text-center mt-3">Se connecter</h1>
+                    {% if error %}
+                        <p class="text-center bg-danger-subtle fs-4 p-2 my-3 rounded shadow border border-danger">{{error}}</p>
+                    {% endif %}
+                    
+                    <form action="/login" method="post" class="mt-5">
 
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="email" placeholder="Votre Email" name="email">
@@ -83,9 +86,12 @@
                             <label for="psw">Votre Mot de Passe</label>
                         </div>
                     
-                        <input type="submit" value="Se connecter" class="btn btn-info-subtle">
+                        <input type="submit" value="Se connecter" class="btn btn-lg bg-info d-block w-25 mx-auto mt-3">
                     </form>
-    {{data}}
+                    {% if user_list %}
+                        <p class="text-center fs-4 mt-3 bg-success-subtle border border-success rounded shadow p-2">Vous vous êtes connecté avec succès vous pouvez rejoindre la page d'accueil en suivant le lien ci-dessous :</p>
+                        <a href="/" class="btn btn-lg btn-secondary d-block w-25 mx-auto">Accueil</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
