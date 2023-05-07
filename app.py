@@ -20,7 +20,7 @@ def mainRoute():
                            title = "Home",
                            path = path,
                            user_list = user_list,
-                           message = message
+                           message = message,
                           )
 
 @app.route('/login', methods = ['GET', 'POST'])
