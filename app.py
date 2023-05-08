@@ -26,7 +26,7 @@ def mainRoute():
 @app.route('/login', methods = ['GET', 'POST'])
 def loginRoute():
     path = request.path
-
+    # test de la method et récupération des données
     if request.method == 'POST':
         input_email = request.form['email']
         input_password = request.form['password']
@@ -35,6 +35,7 @@ def loginRoute():
         error = ''
         if data:
             db_password = data[1]
+            #check mdp via methode de bcrypt
             if bcrypt.checkpw(input_password.encode('utf-8'), db_password.encode('utf-8')):
                 user_list.append(data[0])
             else:
@@ -63,7 +64,7 @@ def logoutRoute():
 @app.route('/signup', methods = ['GET', 'POST'])
 def signupRoute():
     path = request.path
-    
+    # test de la method et récupération des données
     if request.method == 'POST':
         user_name = request.form['name']
         user_firstname = request.form['firstname']
@@ -71,7 +72,7 @@ def signupRoute():
         psw1 = request.form['psw1']
         psw2 = request.form['psw2']
         message = {}
-
+        # regex pour validation des données
         regex_mail = '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}'
         regex_names = '[a-zA-Z-]+'
         
@@ -91,12 +92,14 @@ def signupRoute():
         else:
             firstname = True
 
+        #si tout les champs sont correctement rempli et que les mdp correspondent, alors enregistrement dans la bdd
         if email and name and firstname and psw1:
             if psw1 == psw2:
                 db = Bdd.Db()
                 if db.getUserByEmail(user_email):
                     message['user'] = "Un compte existe déjà avec cet Email"
                 else:
+                    #hashage mdp via bcrypt
                     salt = bcrypt.gensalt(rounds = 15)
                     crypt_psw = bcrypt.hashpw(psw1.encode('utf-8'), salt)
                     db.insertUser(user_name, user_firstname, user_email, crypt_psw)
