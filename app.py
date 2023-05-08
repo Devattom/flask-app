@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import bcrypt
 from mysql import connector
 import re
+from datetime import date
 
 import Bdd
 
@@ -12,6 +13,8 @@ app = Flask(__name__)
 @app.route("/", methods = ['GET'])
 def mainRoute():
     path = request.path
+    today = date.today()
+    year = today.year
     if user_list:
         message = "Bonjour " + user_list[0]
     else:
@@ -19,6 +22,7 @@ def mainRoute():
     return render_template('main.html',
                            title = "Home",
                            path = path,
+                           current_year = year,
                            user_list = user_list,
                            message = message,
                           )
@@ -26,6 +30,8 @@ def mainRoute():
 @app.route('/login', methods = ['GET', 'POST'])
 def loginRoute():
     path = request.path
+    today = date.today()
+    year = today.year
     # test de la method et récupération des données
     if request.method == 'POST':
         input_email = request.form['email']
@@ -45,13 +51,15 @@ def loginRoute():
         return render_template('main.html',
                            title = 'Login',
                            path = path,
+                           current_year = year,
                            data = data,
                            error = error,
                            user_list = user_list)
     else: 
         return render_template('main.html',
                         title = 'Login',
-                        path = path)
+                        path = path,
+                        current_year = year)
 
 
 
@@ -64,6 +72,8 @@ def logoutRoute():
 @app.route('/signup', methods = ['GET', 'POST'])
 def signupRoute():
     path = request.path
+    today = date.today()
+    year = today.year
     # test de la method et récupération des données
     if request.method == 'POST':
         user_name = request.form['name']
@@ -112,6 +122,7 @@ def signupRoute():
         return render_template('main.html',
                            title = "SignUp",
                            path = path,
+                           current_year = year,
                            name = user_name,
                            firstname = user_firstname,
                            email = user_email,
@@ -122,4 +133,16 @@ def signupRoute():
     else:
         return render_template('main.html',
                                title = "SignUp",
-                               path=path)
+                               path=path,
+                               current_year = year)
+
+@app.errorhandler(404)
+def route404(erreur):
+    today = date.today()
+    year = today.year
+    erreur_404 = True
+    return render_template('main.html',
+                           code = 404,
+                           title = 'Erreur 404',
+                           erreur_404 = erreur_404,
+                           current_year = year)
