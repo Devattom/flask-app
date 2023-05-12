@@ -60,6 +60,10 @@ Once everything is set you should normally be able to work on this project, for 
 $ flask run
 ```
 
+## Database
+
+I put the script for the database creation don't forget to build it if you want to test this code.
+
 Enjoy !
 
 ### Comments
