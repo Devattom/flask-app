@@ -2,7 +2,7 @@
 Little Flask app which handle user identification throught a database to store the user. It use Flask, bcrypt for the encryption of the password and some native python module.
 This app allow signup, signin et logout and show different things depends of the status of the user.
 
-##Init
+## Init
 If you are using Vs Code first create the virtual environment:
 *Ctrl+shift+P
 *Pyhton create environment
@@ -33,18 +33,18 @@ $ .venv\Scripts\activate
 $ .venv\bin\activate
 ```
 
-##Install Flask
+## Install Flask
 Once you have set the virtual environment you have to download and install Flask:
 ```console
 $ pip install Flask
 ```
-##Install MySql
+## Install MySql
 Don't forget to install Mysql connector for the database connection :
 
 ```console
 $ pip install mysql-connector-python
 ```
-##Run app
+## Run app
 
 Once everything is set you should normally be able to work on this project, for run the app just do :
 
