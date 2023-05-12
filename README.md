@@ -24,7 +24,8 @@ $ cd myproject
 $ python3 -m .venv venv
 ```
 
-In any case you have to activate the scripts at the end :
+Activate the scripts at the end :
+
 (Windows)
 ```console
 $ .venv\Scripts\activate
@@ -44,6 +45,11 @@ Don't forget to install Mysql connector for the database connection :
 
 ```console
 $ pip install mysql-connector-python
+```
+## Install bcrypt
+
+```console
+$ pip install bcrypt
 ```
 ## Run app
 
