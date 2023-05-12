@@ -10,6 +10,7 @@ If you are using Vs Code first create the virtual environment:
 * Choose your interpreter
 
 If you want to do it with command line :
+
 (Windows)
 ```console
 $ mkdir myproject
