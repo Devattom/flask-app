@@ -47,6 +47,7 @@ Don't forget to install Mysql connector for the database connection :
 $ pip install mysql-connector-python
 ```
 ## Install bcrypt
+And to install bcrypt
 
 ```console
 $ pip install bcrypt
