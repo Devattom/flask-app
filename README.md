@@ -4,10 +4,10 @@ This app allow signup, signin et logout and show different things depends of the
 
 ## Init
 If you are using Vs Code first create the virtual environment:
-*Ctrl+shift+P
-*Pyhton create environment
-*Then choose VENV and the folder where your cloned this project.
-*Choose your interpreter
+* Ctrl+shift+P
+* Pyhton create environment
+* Then choose VENV and the folder where your cloned this project.
+* Choose your interpreter
 
 If you want to do it with command line :
 (Windows)
